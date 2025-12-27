@@ -1,0 +1,18 @@
+<div class="container">
+  @if (isProductsLoading()) {
+    <p>Loading products...</p>
+  } @else {
+    <h2>Products in catalog: {{ productsCount() }}</h2>
+    <h3>Items in cart: {{ cartTotalItems() }}</h3>
+    <div class="product-list">
+      @for (product of products(); track product.id) {
+        <div class="product-item">
+          <div>{{ product.title }}</div>
+          <div>Price: {{ product.price }}</div>
+          <button (click)="addToCart(product)">Add to Cart</button>
+          <button (click)="removeFromCart(product.id)">Remove from Cart</button>
+        </div>
+      }
+    </div>
+  }
+</div>
