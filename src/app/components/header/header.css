@@ -1,0 +1,21 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background: #1976d2;
+  color: white;
+}
+
+a {
+  color: white;
+  text-decoration: none;
+}
+
+.header-actions {
+  min-width: 140px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}

@@ -1,0 +1,7 @@
+<header class="header">
+  <a routerLink="/">Shop</a>
+  <div class="header-actions">
+    <div>Items in cart: {{ itemsInCart() }}</div>
+    <div>Total price: {{ totalCartPrice() | currency }}</div>
+  </div>
+</header>
