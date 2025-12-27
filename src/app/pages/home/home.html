@@ -1,18 +1,15 @@
 <div class="container">
-  @if (isProductsLoading()) {
-    <p>Loading products...</p>
+  @if (productsError(); as err) {
+    <p class="error">Error loading products:
+      {{ err }}
+    </p>
+  } @else if (isProductsLoading()) {
+    <div class="loader"></div>
+  } @else if (productsCount() === 0) {
+    <p>No products found.</p>
   } @else {
     <h2>Products in catalog: {{ productsCount() }}</h2>
     <h3>Items in cart: {{ cartTotalItems() }}</h3>
-    <div class="product-list">
-      @for (product of products(); track product.id) {
-        <div class="product-item">
-          <div>{{ product.title }}</div>
-          <div>Price: {{ product.price }}</div>
-          <button (click)="addToCart(product)">Add to Cart</button>
-          <button (click)="removeFromCart(product.id)">Remove from Cart</button>
-        </div>
-      }
-    </div>
+    <app-product-list [products]="products()"/>
   }
 </div>

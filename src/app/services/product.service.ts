@@ -1,42 +1,26 @@
-import { computed, Injectable, signal } from "@angular/core";
-import type { Product } from "../models/product.model";
+import { computed, effect, Injectable } from '@angular/core';
+import type { Product } from '../models/product.model';
+import { httpResource } from '@angular/common/http';
 
 @Injectable({
-  providedIn: "root",
+  providedIn: 'root',
 })
 export class ProductService {
-  readonly #products = signal<Product[]>([]);
-  readonly #loading = signal<boolean>(true);
+  private readonly apiProductsUrl = 'https://fakestoreapi.com/products';
+  private readonly apiProductsResource = httpResource<Product[]>(() => this.apiProductsUrl, {
+    defaultValue: [],
+  });
 
-  public readonly products = this.#products.asReadonly();
-  public readonly loading = this.#loading.asReadonly();
-  public readonly count = computed(() => this.#products().length);
+  public readonly error = this.apiProductsResource.error;
+  public readonly products = this.apiProductsResource.value.asReadonly();
+  public readonly isLoading = this.apiProductsResource.isLoading;
+  public readonly count = computed(() => this.products().length);
 
   constructor() {
-    this.fetchProducts();
-  }
-
-  private async fetchProducts() {
-    this.#loading.set(true);
-    // try {
-    // const response = await fetch('https://fakestoreapi.com/products')
-    // const data: Product[] = await response.json()
-    // this.#products.set([
-    //   {
-    //     id: 'p1',
-    //     title: 'Demo Product',
-    //     price: 99,
-    //   }
-    // ]);
-    // } catch (error) {
-    //   console.error('Error fetching products:', error)
-    // } finally {
-    //   this.#loading.set(false)
-    // }
-
-    setTimeout(() => {
-      this.#products.set([{ id: "p1", title: "Demo Product", price: 99 }]);
-      this.#loading.set(false);
-    }, 1_500);
+    effect(() => {
+      if (this.error()) {
+        console.error('Error loading products:', this.error());
+      }
+    });
   }
 }

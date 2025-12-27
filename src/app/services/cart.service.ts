@@ -1,9 +1,9 @@
-import { computed, Injectable, signal } from "@angular/core";
-import type { Product } from "../models/product.model";
-import { CartItem } from "../models/cart-item.model";
+import { computed, Injectable, signal } from '@angular/core';
+import type { Product } from '../models/product.model';
+import { CartItem } from '../models/cart-item.model';
 
 @Injectable({
-  providedIn: "root",
+  providedIn: 'root',
 })
 export class CartService {
   #items = signal<CartItem[]>([]);
@@ -22,10 +22,10 @@ export class CartService {
 
   public addToCart(product: Product, quantity = 1) {
     if (!product) {
-      throw new Error("Product is required");
+      throw new Error('Product is required');
     }
     if (quantity <= 0 || !Number.isInteger(quantity)) {
-      throw new Error("Quantity must be a positive integer");
+      throw new Error('Quantity must be a positive integer');
     }
 
     const items = this.#items();
@@ -45,12 +45,12 @@ export class CartService {
 
   public decreaseQuantity(productId: string, quantity = 1) {
     if (quantity <= 0 || !Number.isInteger(quantity)) {
-      throw new Error("Quantity must be a positive integer");
+      throw new Error('Quantity must be a positive integer');
     }
     const items = this.#items();
     const existingItemIndex = items.findIndex((item) => item.product.id === productId);
     if (existingItemIndex === -1) {
-      throw new Error("Product not found in cart");
+      throw new Error('Product not found in cart');
     }
     const updatedItems = [...items];
     const currentQuantity = updatedItems[existingItemIndex].quantity;
@@ -69,7 +69,7 @@ export class CartService {
     const items = this.#items();
     const existingItemIndex = items.findIndex((item) => item.product.id === productId);
     if (existingItemIndex === -1) {
-      throw new Error("Product not found in cart");
+      throw new Error('Product not found in cart');
     }
     const updatedItems = items.filter((item) => item.product.id !== productId);
     this.#items.set(updatedItems);
