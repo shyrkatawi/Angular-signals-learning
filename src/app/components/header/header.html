@@ -3,5 +3,12 @@
   <div class="header-actions">
     <div>Items in cart: {{ itemsInCart() }}</div>
     <div>Total price: {{ totalCartPrice() | currency }}</div>
+
+    @if (isLoggedIn()) {
+      <span class="user-info">{{ username() }}</span>
+      <button (click)="logout()" class="auth-button">Logout</button>
+    } @else {
+      <button routerLink="/login" class="auth-button">Login</button>
+    }
   </div>
 </header>

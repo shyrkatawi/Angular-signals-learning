@@ -1,5 +1,5 @@
-import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component, inject } from '@angular/core';
+import { Router, RouterOutlet } from '@angular/router';
 import { Header } from './components/header/header';
 
 @Component({
@@ -9,5 +9,17 @@ import { Header } from './components/header/header';
   styleUrl: './app.scss',
 })
 export class App {
-  protected readonly title = signal('Angular-signals-learning');
+  private readonly router = inject(Router);
+
+  protected toHome = () => {
+    this.router.navigateByUrl('/');
+  };
+
+  protected toLogin = () => {
+    this.router.navigateByUrl('/login');
+  };
+
+  protected toCheckout = () => {
+    this.router.navigateByUrl('/checkout');
+  };
 }

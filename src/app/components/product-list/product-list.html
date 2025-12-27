@@ -3,7 +3,9 @@
     <div class="product-card">
       <h3>{{ product.title }}</h3>
       <p class="price">{{ product.price | currency }}</p>
-      <button (click)="addToCart(product)">
+      <button (click)="addToCart(product)"
+              [disabled]="!isLoggedIn()"
+      >
         Add to Cart
       </button>
     </div>
