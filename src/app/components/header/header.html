@@ -1,9 +1,9 @@
 <header class="header">
   <a routerLink="/">Shop</a>
   <div class="header-actions">
-    <div>Items in cart: {{ itemsInCart() }}</div>
-    <div>Total price: {{ totalCartPrice() | currency }}</div>
-
+    <button class="cart-button" (click)="openCartSidebar()">
+      Cart items: {{ itemsInCart() }} Cart price: {{ totalCartPrice() | currency }}
+    </button>
     @if (isLoggedIn()) {
       <span class="user-info">{{ username() }}</span>
       <button (click)="logout()" class="auth-button">Logout</button>

@@ -1,8 +1,5 @@
-<div>
-  <button (click)="toHome()">home</button>
-  <button (click)="toLogin()">login</button>
-  <button (click)="toCheckout()">checkout</button>
-
-</div>
+@if (isCartSidebarOpen()) {
+  <app-cart-sidebar/>
+}
 <app-header/>
 <router-outlet/>

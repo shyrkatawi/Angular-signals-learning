@@ -3,6 +3,7 @@ import { CurrencyPipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { CartService } from '../../services/cart.service';
 import { AuthService } from '../../services/auth.service';
+import { SidebarService } from '../../services/sidebar.service';
 
 @Component({
   selector: 'app-header',
@@ -13,6 +14,7 @@ import { AuthService } from '../../services/auth.service';
 export class Header {
   private readonly authService = inject(AuthService);
   private readonly cartService = inject(CartService);
+  private readonly sidebarService = inject(SidebarService);
 
   protected itemsInCart = this.cartService.totalItems;
   protected totalCartPrice = this.cartService.totalPrice;
@@ -22,5 +24,9 @@ export class Header {
 
   protected logout(): void {
     this.authService.logout();
+  }
+
+  protected openCartSidebar(): void {
+    this.sidebarService.open();
   }
 }
